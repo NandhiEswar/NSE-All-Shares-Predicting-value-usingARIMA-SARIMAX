@@ -18,306 +18,51 @@ d: Degree of differencing
 q: Order of the moving average part
 The general form of the ARIMA model can be expressed as:
 
-Y
-t
-=
-c
-+
-ϕ
-1
-Y
-t
-−
-1
-+
-ϕ
-2
-Y
-t
-−
-2
-+
-.
-.
-.
-+
-ϕ
-p
-Y
-t
-−
-p
-+
-θ
-1
-ϵ
-t
-−
-1
-+
-θ
-2
-ϵ
-t
-−
-2
-+
-.
-.
-.
-+
-θ
-q
-ϵ
-t
-−
-q
-+
-ϵ
-t
-Y 
-t
+$$
+Y_t = c + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + ... + \phi_p Y_{t-p} + \theta_1 \epsilon_{t-1} + \theta_2 \epsilon_{t-2} + ... + \theta_q \epsilon_{t-q} + \epsilon_t
+$$
 ​	
- =c+ϕ 
-1
-​	
- Y 
-t−1
-​	
- +ϕ 
-2
-​	
- Y 
-t−2
-​	
- +...+ϕ 
-p
-​	
- Y 
-t−p
-​	
- +θ 
-1
-​	
- ϵ 
-t−1
-​	
- +θ 
-2
-​	
- ϵ 
-t−2
-​	
- +...+θ 
-q
-​	
- ϵ 
-t−q
-​	
- +ϵ 
-t
-​	
- 
 Where:
+- \( Y_t \) is the value at time \( t \),
+- \( c \) is a constant,
+- \( \phi \) are the AR parameters,
+- \( \theta \) are the MA parameters,
+- \( \epsilon \) is white noise (error term).
 
-Y
-t
-Y 
-t
-​	
-  is the value at time 
-t
-t,
-c
-c is a constant,
-ϕ
-ϕ are the AR parameters,
-θ
-θ are the MA parameters,
-ϵ
-ϵ is white noise (error term).
 Stationarity
 For ARIMA to be effective, the time series must be stationary. This means that its statistical properties (mean, variance) do not change over time. The differencing operation, often referred to as the "difference function," helps achieve this by subtracting the previous observation from the current observation:
 
-Y
-t
-′
-=
-Y
-t
-−
-Y
-t
-−
-1
-Y 
-t
-′
-​	
- =Y 
-t
-​	
- −Y 
-t−1
-​	
+$$
+Y'_t = Y_t - Y_{t-1}
+$$
+
  
-This process is repeated 
-d
-d times if necessary.
+This process is repeated \( d \) times if necessary.
+
 
 2. SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous regressors)
 
-Overview
+### Overview
 SARIMAX extends ARIMA by adding seasonal components and the ability to include exogenous variables (external predictors). This makes it suitable for time series data that exhibit seasonal patterns.
 
-Mathematical Representation
-The SARIMAX model is represented as SARIMAX(p, d, q)(P, D, Q, s), where:
+The SARIMAX model is represented as \( \text{SARIMAX}(p, d, q)(P, D, Q, s) \), where:
+- **p, d, q**: Non-seasonal parameters (as defined in ARIMA).
+- **P, D, Q**: Seasonal parameters.
+- **s**: Length of the seasonal cycle.
 
-p, d, q: Non-seasonal parameters (as defined in ARIMA).
-P, D, Q: Seasonal parameters.
-s: Length of the seasonal cycle.
 The SARIMAX model can be expressed as:
 
-Y
-t
-=
-c
-+
-∑
-i
-=
-1
-p
-ϕ
-i
-Y
-t
-−
-i
-+
-∑
-j
-=
-1
-q
-θ
-j
-ϵ
-t
-−
-j
-+
-∑
-k
-=
-1
-P
-Φ
-k
-Y
-t
-−
-k
-⋅
-s
-+
-∑
-l
-=
-1
-Q
-Θ
-l
-ϵ
-t
-−
-l
-⋅
-s
-+
-ϵ
-t
-Y 
-t
-​	
- =c+ 
-i=1
-∑
-p
-​	
- ϕ 
-i
-​	
- Y 
-t−i
-​	
- + 
-j=1
-∑
-q
-​	
- θ 
-j
-​	
- ϵ 
-t−j
-​	
- + 
-k=1
-∑
-P
-​	
- Φ 
-k
-​	
- Y 
-t−k⋅s
-​	
- + 
-l=1
-∑
-Q
-​	
- Θ 
-l
-​	
- ϵ 
-t−l⋅s
-​	
- +ϵ 
-t
-​	
- 
+$$
+Y_t = c + \sum_{i=1}^{p} \phi_i Y_{t-i} + \sum_{j=1}^{q} \theta_j \epsilon_{t-j} + \sum_{k=1}^{P} \Phi_k Y_{t-k \cdot s} + \sum_{l=1}^{Q} \Theta_l \epsilon_{t-l \cdot s} + \epsilon_t
+$$
+
 Where:
+Where the terms involving \( \Phi \) and \( \Theta \) account for the seasonal components. To achieve stationarity in seasonal time series, seasonal differencing is used:
 
-The terms involving 
-Φ
-Φ and 
-Θ
-Θ account for the seasonal components.
-Seasonal Differencing
-To achieve stationarity in seasonal time series, seasonal differencing is used:
 
-Y
-t
-′
-=
-Y
-t
-−
-Y
-t
-−
-s
-Y 
-t
-′
-​	
- =Y 
-t
-​	
- −Y 
-t−s
+$$
+Y'_t = Y_t - Y_{t-s}
+$$
 ​	
  
 This accounts for the seasonality by removing periodic fluctuations.
